@@ -1,4 +1,6 @@
-class Drinks {
+package Helper;
+
+public class Drinks {
     public static final double COFFEE_PRICE = 2.5;
     public static final double TEA_PRICE = 1.8;
     public static final double LEMONADE_PRICE = 2.0;

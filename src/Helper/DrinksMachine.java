@@ -1,4 +1,6 @@
-enum DrinksMachine {
+package Helper;
+
+public enum DrinksMachine {
     COFFEE,
     TEA,
     LEMONADE,

@@ -1,3 +1,8 @@
+import Helper.DrinkService;
+import Helper.Drinks;
+import Helper.DrinksMachine;
+
+import java.util.Scanner;
 public class Main {
     // Загальна вартість замовлення
     private static double totalCost = 0.0;
@@ -5,57 +10,73 @@ public class Main {
     private static int totalDrinks = 0;
 
     public static void main(String[] args) {
-        // Завдання #6: Додайте можливість вибору напою для користувача і залежно від вибору робіть йому напій
-        makeMultipleDrinks(DrinksMachine.COFFEE, 2);
-        makeMultipleDrinks(DrinksMachine.LEMONADE, 1);
-        makeMultipleDrinks(DrinksMachine.TEA, 1);
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Welcome to the drinks vending machine!");
+
+        while (true) {
+            System.out.println("Choose your drink:");
+            System.out.println("1. Coffee");
+            System.out.println("2. Tea");
+            System.out.println("3. Lemonade");
+            System.out.println("4. Mojito");
+            System.out.println("5. Mineral Water");
+            System.out.println("6. Coca-Cola");
+            System.out.println("7. Exit");
+
+            int choice = scanner.nextInt();
+
+            if (choice == 7) {
+                break;
+            } else if (choice < 1 || choice > 6) {
+                System.out.println("Invalid choice");
+                continue;
+            }
+
+            makeDrink(choice);
+        }
+
+        // Завдання #8: Виведення загальної кількості напоїв
+        System.out.println("Total number of drinks: " + totalDrinks);
         // Завдання #8: Виведення загальної суми до сплати
         System.out.println("Total cost: $" + totalCost);
+
+        scanner.close();
     }
 
-    // Завдання #3: Підрахунок кількості напоїв та загальної суми
-    private static void makeDrink(DrinksMachine choice) {
+    // Приготування напоїв
+    private static void makeDrink(int choice) {
+        DrinksMachine drinkChoice = null;
         switch (choice) {
-            case COFFEE:
-                System.out.println("Making coffee");
+            case 1:
+                drinkChoice = DrinksMachine.COFFEE;
                 totalCost += Drinks.COFFEE_PRICE;
-                totalDrinks++;
                 break;
-            case TEA:
-                System.out.println("Making tea");
+            case 2:
+                drinkChoice = DrinksMachine.TEA;
                 totalCost += Drinks.TEA_PRICE;
-                totalDrinks++;
                 break;
-            case LEMONADE:
-                System.out.println("Making lemonade");
+            case 3:
+                drinkChoice = DrinksMachine.LEMONADE;
                 totalCost += Drinks.LEMONADE_PRICE;
-                totalDrinks++;
                 break;
-            case MOJITO:
-                System.out.println("Making mojito");
+            case 4:
+                drinkChoice = DrinksMachine.MOJITO;
                 totalCost += Drinks.MOJITO_PRICE;
-                totalDrinks++;
                 break;
-            case MINERAL_WATER:
-                System.out.println("Making mineral water");
+            case 5:
+                drinkChoice = DrinksMachine.MINERAL_WATER;
                 totalCost += Drinks.MINERAL_WATER_PRICE;
-                totalDrinks++;
                 break;
-            case COCA_COLA:
-                System.out.println("Making Coca-Cola");
+            case 6:
+                drinkChoice = DrinksMachine.COCA_COLA;
                 totalCost += Drinks.COCA_COLA_PRICE;
-                totalDrinks++;
                 break;
-            default:
-                System.out.println("Invalid choice");
         }
-    }
 
-    // Завдання #7: Користувач повинен мати можливість замовити кілька напоїв
-    private static void makeMultipleDrinks(DrinksMachine choice, int quantity) {
-        for (int i = 0; i < quantity; i++) {
-            makeDrink(choice);
+        if (drinkChoice != null) {
+            DrinkService.makeDrink(drinkChoice);
+            totalDrinks++;
         }
     }
 }
